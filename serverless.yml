@@ -1,0 +1,30 @@
+
+service: aws-node # NOTE: update this with your service name
+
+frameworkVersion: '2'
+
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /reports
+          method: get
+          private: false
+          cors: true
+
+custom:
+  serverless-offline:
+    httpPort: 5000
+    websocketPort: 5001
+    lambdaPort: 5002
+    useChildProcesses: true
+
+plugins:
+  - serverless-offline
